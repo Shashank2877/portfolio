@@ -66,8 +66,14 @@ app.post('/api/chat', async (req, res) => {
     res.json({ reply });
   } catch (error) {
     console.error('OpenAI API Error:', error);
+    console.error('Error details:', {
+      message: error.message,
+      status: error.status,
+      type: error.type
+    });
     res.status(500).json({ 
-      error: 'Failed to process your request. Please try again later.' 
+      error: 'Failed to process your request. Please try again later.',
+      details: error.message
     });
   }
 });
